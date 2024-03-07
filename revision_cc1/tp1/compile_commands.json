@@ -1,0 +1,50 @@
+[
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-Wall",
+      "-Wextra",
+      "-g",
+      "-Iinclude",
+      "-c",
+      "-o",
+      "src/client.o",
+      "src/client.c"
+    ],
+    "directory": "/root/multi-tache/revision_cc1/tp1",
+    "file": "/root/multi-tache/revision_cc1/tp1/src/client.c",
+    "output": "/root/multi-tache/revision_cc1/tp1/src/client.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-Wall",
+      "-Wextra",
+      "-g",
+      "-Iinclude",
+      "-c",
+      "-o",
+      "src/main.o",
+      "src/main.c"
+    ],
+    "directory": "/root/multi-tache/revision_cc1/tp1",
+    "file": "/root/multi-tache/revision_cc1/tp1/src/main.c",
+    "output": "/root/multi-tache/revision_cc1/tp1/src/main.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-Wall",
+      "-Wextra",
+      "-g",
+      "-Iinclude",
+      "-c",
+      "-o",
+      "src/server.o",
+      "src/server.c"
+    ],
+    "directory": "/root/multi-tache/revision_cc1/tp1",
+    "file": "/root/multi-tache/revision_cc1/tp1/src/server.c",
+    "output": "/root/multi-tache/revision_cc1/tp1/src/server.o"
+  }
+]
