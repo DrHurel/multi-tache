@@ -1,0 +1,18 @@
+[
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-Wall",
+      "-Wextra",
+      "-g",
+      "-Iinclude",
+      "-c",
+      "-o",
+      "src/main.o",
+      "src/main.c"
+    ],
+    "directory": "/root/multi-tache/rdv",
+    "file": "/root/multi-tache/rdv/src/main.c",
+    "output": "/root/multi-tache/rdv/src/main.o"
+  }
+]

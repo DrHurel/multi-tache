@@ -1,0 +1,18 @@
+[
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-Wall",
+      "-Wextra",
+      "-g",
+      "-Iinclude",
+      "-c",
+      "-o",
+      "src/client/app.o",
+      "src/client/app.c"
+    ],
+    "directory": "/root/multi-tache/tp3",
+    "file": "/root/multi-tache/tp3/src/client/app.c",
+    "output": "/root/multi-tache/tp3/src/client/app.o"
+  }
+]
