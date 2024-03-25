@@ -1,0 +1,18 @@
+[
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-Wall",
+      "-Wextra",
+      "-g",
+      "-Iinclude",
+      "-c",
+      "-o",
+      "src/main.o",
+      "src/main.c"
+    ],
+    "directory": "/home/hurel/multi-tache/tp_thread_4",
+    "file": "/home/hurel/multi-tache/tp_thread_4/src/main.c",
+    "output": "/home/hurel/multi-tache/tp_thread_4/src/main.o"
+  }
+]
