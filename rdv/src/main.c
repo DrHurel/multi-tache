@@ -8,8 +8,8 @@
 #include <unistd.h>
 
 typedef struct {
-  pthread_mutex_t *lock; // lock for counter
-  pthread_cond_t *cond;
+  pthread_mutex_t lock; // lock for counter
+  pthread_cond_t cond;
   int count;
 
   // regrouoes les donnée partagées entres les threads participants aux RdV :
@@ -36,19 +36,20 @@ void *participant(void *p) {
   calcul(args->idThread + rand() % 10); // c'est un exemple.
   printf("end calc %d\n", args->idThread);
   // RdV
-  pthread_mutex_lock(predicat->lock);
+  pthread_mutex_lock(&predicat->lock);
 
   predicat->count--;
   printf("count :%d\n", predicat->count);
-
+  if (predicat->count) {
+    pthread_cond_broadcast(&predicat->cond);
+  }
   while (predicat->count > 0) { // attention : le dernier arrivé ne doit pas
     printf("stop %d\n", args->idThread);
-    pthread_cond_wait(predicat->cond,
-                      predicat->lock); // attendre. Il doit
-                                       // réveiller tous les autres.
+    pthread_cond_wait(&predicat->cond,
+                      &predicat->lock); // attendre. Il doit
+                                        // réveiller tous les autres.
   }
-  pthread_mutex_unlock(predicat->lock);
-  pthread_cond_broadcast(predicat->cond);
+  pthread_mutex_unlock(&predicat->lock);
 
   printf("reprise %d\n", args->idThread);
   calcul(1); // reprise et poursuite de l'execution.
@@ -66,13 +67,10 @@ int main(int argc, char **argv) {
   predicatRdv *commun = malloc(sizeof(predicatRdv));
   pthread_t threadList[nb_participant];
   commun->count = nb_participant;
-  commun->lock = malloc(sizeof(pthread_mutex_t));
-  commun->cond = malloc(sizeof(pthread_cond_t));
-  printf("try 1\n");
-  pthread_mutex_init(commun->lock, NULL);
-  printf("try 2\n");
-  pthread_cond_init(commun->cond, NULL);
-  printf("try 3\n");
+
+  pthread_mutex_init(&commun->lock, NULL);
+  pthread_cond_init(&commun->cond, NULL);
+
   for (int i = 0; i < nb_participant; i++) {
 
     params *p = malloc(sizeof(params));
@@ -91,6 +89,9 @@ int main(int argc, char **argv) {
     printf("join %d\n", i);
     pthread_join(threadList[i], NULL);
   }
+
+  pthread_mutex_destroy(&commun->lock);
+  pthread_cond_destroy(&commun->cond);
 
   return 0;
 }
