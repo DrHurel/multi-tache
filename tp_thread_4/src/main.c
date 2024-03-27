@@ -8,8 +8,8 @@
 typedef struct {
   int nbZones;
   int *di; // le tableau indiqué dans l'énoncé
-  pthread_mutex_t *lock;
-  pthread_cond_t *cond;
+  pthread_mutex_t lock;
+  pthread_cond_t cond;
   //
 } varPartagees;
 
@@ -31,12 +31,12 @@ void *traitement(void *p) {
   for (int i = 0; i < vPartage->nbZones; i++) {
 
     if (args->idThread != 1) { // le premier traitement n'attent personne
-      pthread_mutex_lock(vPartage->lock);
+      pthread_mutex_lock(&vPartage->lock);
       while (vPartage->di[i] < args->idThread - 1) {
-        pthread_cond_wait(vPartage->cond, vPartage->lock);
+        pthread_cond_wait(&vPartage->cond, &vPartage->lock);
       }
 
-      pthread_mutex_unlock(vPartage->lock);
+      pthread_mutex_unlock(&vPartage->lock);
     }
     printf("debut etape %d thread %d\n", i, args->idThread);
 
@@ -48,10 +48,10 @@ void *traitement(void *p) {
     // a la fin du traitement d'une zone, le signaler pour qu'un thread en
     // attente se réveille.
     printf("etape %d thread %d fini\n", i, args->idThread);
-    pthread_mutex_lock(vPartage->lock);
+    pthread_mutex_lock(&vPartage->lock);
     vPartage->di[i]++;
-    pthread_mutex_unlock(vPartage->lock);
-    pthread_cond_broadcast(vPartage->cond);
+    pthread_mutex_unlock(&vPartage->lock);
+    pthread_cond_broadcast(&vPartage->cond);
   }
   pthread_exit(NULL);
 }
@@ -69,11 +69,9 @@ int main(const int argc, const char **argv) {
   shared->nbZones = nb_traitement;
   shared->di = (int *)malloc(sizeof(int) * nb_traitement);
   printf("malloc\n");
-  shared->lock = malloc(sizeof(pthread_mutex_t));
-  shared->cond = malloc(sizeof(pthread_cond_t));
 
-  pthread_mutex_init(shared->lock, NULL);
-  pthread_cond_init(shared->cond, NULL);
+  pthread_mutex_init(&shared->lock, NULL);
+  pthread_cond_init(&shared->cond, NULL);
 
   printf("init all thread\n");
   for (int i = 1; i <= nb_traitement; i++) {
