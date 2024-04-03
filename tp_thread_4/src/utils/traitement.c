@@ -24,7 +24,9 @@ void increment_count(varPartagees *shared, int target) {
   pthread_mutex_unlock(&(shared->lock));
 }
 
-void traitement_action() { sleep((rand() % 4) + 1); };
+void traitement_action(){
+    // sleep((rand() % 4) + 1);
+};
 
 void *traitement(void *p) {
 
@@ -40,11 +42,11 @@ void *traitement(void *p) {
     traitement_action();
     printf("log:%d :::::: zone %d\n", args->idThread, i);
 
-    if (args->idThread == args->vPartage->nbTraitements) {
+    if (args->idThread == args->vPartage->nbTraitements - 1) {
       continue;
     }
     increment_count(vPartage, args->idThread);
-    pthread_cond_broadcast(&(vPartage->cond[args->idThread]));
+    pthread_cond_signal(&(vPartage->cond[args->idThread]));
   }
   pthread_exit(NULL);
 }
