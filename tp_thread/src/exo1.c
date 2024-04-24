@@ -64,7 +64,6 @@ int main(int argc, char *argv[]) {
     }
   }
 
-  
   // garder cette saisie et modifier le code en temps venu.
   printf("saisir un caract�re \n");
   fgetc(stdin);

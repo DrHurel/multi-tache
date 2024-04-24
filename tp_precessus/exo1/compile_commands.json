@@ -1,0 +1,14 @@
+[
+  {
+    "arguments": [
+      "/usr/bin/g++",
+      "-c",
+      "-o",
+      "bin/Pi",
+      "Pi.cc"
+    ],
+    "directory": "/home/hurel/multi-tache/tp_precessus/exo1",
+    "file": "/home/hurel/multi-tache/tp_precessus/exo1/Pi.cc",
+    "output": "/home/hurel/multi-tache/tp_precessus/exo1/bin/Pi"
+  }
+]

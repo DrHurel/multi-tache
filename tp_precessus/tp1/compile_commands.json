@@ -1,0 +1,19 @@
+[
+  {
+    "arguments": [
+      "/usr/bin/g++",
+      "-std=c++23",
+      "-Wall",
+      "-Wextra",
+      "-g",
+      "-Iinclude",
+      "-c",
+      "-o",
+      "src/main.o",
+      "src/main.cpp"
+    ],
+    "directory": "/home/hurel/multi-tache/tp_precessus/tp1",
+    "file": "/home/hurel/multi-tache/tp_precessus/tp1/src/main.cpp",
+    "output": "/home/hurel/multi-tache/tp_precessus/tp1/src/main.o"
+  }
+]
