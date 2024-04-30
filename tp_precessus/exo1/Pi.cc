@@ -1,105 +1,78 @@
-#include <cstdlib>
 #include <fcntl.h>
 #include <iostream>
 #include <stdio.h> //perror
 #include <stdlib.h>
 #include <sys/ipc.h>
 #include <sys/msg.h>
+#include <sys/stat.h>
 #include <sys/types.h>
-#include <sys/wait.h>
 #include <unistd.h>
+using namespace std;
 
-using Header_rcv = struct {
+struct sMsg {
   long etiq;
-  int size;
+  int pid;
 };
 
-using Locker_msg = struct {
-  long etiq;
-  long pid;
-};
-
-using Buf_rev = struct {
-  long etiq;
-  char *data;
-};
-
-int action(int id, key_t f_id) {
-  auto key = msgget(f_id, O_RDWR);
-  if (key == -1) {
-    perror("msgget failed");
-    return -1;
-  }
-  printf("%d blabla pas critique : \n", id);
-  Locker_msg lock;
-  lock.etiq = 0;
-  lock.pid = getpid();
-  auto r = msgsnd(key, &lock, sizeof(lock) - sizeof(long), 0);
-  if (r < 0) {
-    perror("fail to ask");
-  }
-  auto header = Header_rcv{getpid()};
-  msgrcv(key, &header, sizeof(int), lock.pid, 0);
-  printf("%d blabla critique\n", id);
-  sleep(2);
-  auto buf = Buf_rev{getpid(), (char *)malloc(sizeof(char) * header.size)};
-
-  msgrcv(key, &buf, sizeof(char) * header.size, lock.pid, 0);
-  printf("%d toujours critique : %s\n", id, buf.data);
-
-  lock.etiq = lock.pid;
-  r = msgsnd(key, &lock, sizeof(lock.pid), 0);
-  if (r < 0) {
-    perror("fail to unlock");
+int main(int argc, char *argv[]) {
+  if (argc != 3) {
+    cout << "Nbre d'args invalide, utilisation :" << endl;
+    cout << argv[0] << " fichier-pour-cle-ipc entier-pour-cle-ipc" << endl;
+    exit(0);
   }
 
-  printf("%d plus critique\n", id);
-  free(buf.data);
-  sleep(1);
-  printf("%d fin pas critique\n", id);
+  key_t cle = ftok(argv[1], atoi(argv[2]));
 
-  return 1;
-}
-
-int main(const int argc, char *argv[]) {
-
-  if (argc != 4) {
-    std::cout << "Nbre d'args invalide, utilisation :" << std::endl;
-    std::cout << argv[0] << " <fichier-pour-cle-ipc> <entier-pour-cle-ipc> <n>"
-              << std::endl;
-    exit(EXIT_FAILURE);
+  if (cle == -1) {
+    perror("Erreur ftok : ");
+    exit(2);
   }
 
-  int n = atoi(argv[3]);
-  pid_t pid;
-  key_t f_id = ftok(argv[1], atoi(argv[2]));
-  if (f_id < 0) {
-    perror("fail to load");
-  }
-  for (int i = 0; i < n; ++i) {
-    if ((pid = fork()) == -1) {
-      perror("fait to start : ");
-    } else if (pid == 0) {
-      return action(i, f_id);
-    } else {
-      continue;
-    }
+  cout << "ftok ok" << endl;
+
+  cout << "creation de msgget" << endl;
+
+  int f_id2 = msgget(cle, IPC_CREAT | 0666);
+  if (f_id2 == -1) {
+    perror("Erreur msgget f_id2: ");
+    exit(3);
   }
 
-  int status;
-  while (true) {
-
-    pid_t done = wait(&status);
-    if (done == -1) {
-      if (errno == ECHILD)
-        break; // no more child processes
-    } else {
-      if (!WIFEXITED(status) || WEXITSTATUS(status) != 0) {
-        std::cerr << "pid " << done << " failed" << std::endl;
-        exit(1);
-      }
-    }
+  struct sMsg vMsg;
+  vMsg.etiq = 1; // pas 0 car sinon on rentre dans la boucle infinie
+  vMsg.pid = getpid();
+  int res = msgsnd(f_id2, &vMsg, sizeof(vMsg), 0); // envoi étiquete 1
+  if (res == -1) {
+    perror("Erreur msgsnd res: ");
+    exit(4);
+  }
+  printf("j'attend la validation PID : %i\n", getpid());
+  struct sMsg vMsgr;
+  int ret =
+      msgrcv(f_id2, &vMsgr, sizeof(vMsgr), (long)getpid(), 0); // validation ?
+  if (ret == -1) {
+    perror("Erreur msgrcv ret: ");
+    exit(5);
   }
 
-  return 0;
+  printf("je suis validé\n");
+  struct sMsg vMsg2;
+  vMsg2.etiq = vMsgr.pid;
+  vMsg2.pid = getpid();
+  int res2 = msgsnd(f_id2, &vMsg2, sizeof(vMsg2), 0); // envoi modif
+  if (res2 == -1) {
+    perror("Erreur msgsnd res2: ");
+    exit(6);
+  }
+  printf("modification envoyer\n");
+
+  struct sMsg vMsgr2;
+  int ret2 = msgrcv(f_id2, &vMsgr2, sizeof(vMsgr2), (long)getpid(), 0); // fini
+                                                                        // ?
+  if (ret2 == -1) {
+    perror("Erreur msgrcv ret2: ");
+    exit(7);
+  }
+  printf("j'ai bien fini\n");
+  return EXIT_SUCCESS;
 }

@@ -1,0 +1,44 @@
+[
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-Wall",
+      "-Iinclude",
+      "-c",
+      "-o",
+      "obj/semInit.o",
+      "semInit.c"
+    ],
+    "directory": "/home/hurel/multi-tache/tp_precessus/exo2",
+    "file": "/home/hurel/multi-tache/tp_precessus/exo2/semInit.c",
+    "output": "/home/hurel/multi-tache/tp_precessus/exo2/obj/semInit.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-Wall",
+      "-Iinclude",
+      "-c",
+      "-o",
+      "obj/supprimeSem.o",
+      "supprimeSem.c"
+    ],
+    "directory": "/home/hurel/multi-tache/tp_precessus/exo2",
+    "file": "/home/hurel/multi-tache/tp_precessus/exo2/supprimeSem.c",
+    "output": "/home/hurel/multi-tache/tp_precessus/exo2/obj/supprimeSem.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-Wall",
+      "-Iinclude",
+      "-c",
+      "-o",
+      "obj/rdv.o",
+      "rdv.c"
+    ],
+    "directory": "/home/hurel/multi-tache/tp_precessus/exo2",
+    "file": "/home/hurel/multi-tache/tp_precessus/exo2/rdv.c",
+    "output": "/home/hurel/multi-tache/tp_precessus/exo2/obj/rdv.o"
+  }
+]

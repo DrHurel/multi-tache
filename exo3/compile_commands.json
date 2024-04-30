@@ -1,0 +1,130 @@
+[
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-Wall",
+      "-Wextra",
+      "-g",
+      "-Iinclude",
+      "-c",
+      "-o",
+      "src/main.o",
+      "src/main.c"
+    ],
+    "directory": "/home/hurel/multi-tache/exo3",
+    "file": "/home/hurel/multi-tache/exo3/src/main.c",
+    "output": "/home/hurel/multi-tache/exo3/src/main.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-Wall",
+      "-Wextra",
+      "-g",
+      "-Iinclude",
+      "-c",
+      "-o",
+      "src/image_ppm/lib.o",
+      "src/image_ppm/lib.c"
+    ],
+    "directory": "/home/hurel/multi-tache/exo3",
+    "file": "/home/hurel/multi-tache/exo3/src/image_ppm/lib.c",
+    "output": "/home/hurel/multi-tache/exo3/src/image_ppm/lib.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-Wall",
+      "-Wextra",
+      "-g",
+      "-Iinclude",
+      "-c",
+      "-o",
+      "src/image/create.o",
+      "src/image/create.c"
+    ],
+    "directory": "/home/hurel/multi-tache/exo3",
+    "file": "/home/hurel/multi-tache/exo3/src/image/create.c",
+    "output": "/home/hurel/multi-tache/exo3/src/image/create.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-Wall",
+      "-Wextra",
+      "-g",
+      "-Iinclude",
+      "-c",
+      "-o",
+      "src/jobs/applyJobs.o",
+      "src/jobs/applyJobs.c"
+    ],
+    "directory": "/home/hurel/multi-tache/exo3",
+    "file": "/home/hurel/multi-tache/exo3/src/jobs/applyJobs.c",
+    "output": "/home/hurel/multi-tache/exo3/src/jobs/applyJobs.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-Wall",
+      "-Wextra",
+      "-g",
+      "-Iinclude",
+      "-c",
+      "-o",
+      "src/jobs/jobCount.o",
+      "src/jobs/jobCount.c"
+    ],
+    "directory": "/home/hurel/multi-tache/exo3",
+    "file": "/home/hurel/multi-tache/exo3/src/jobs/jobCount.c",
+    "output": "/home/hurel/multi-tache/exo3/src/jobs/jobCount.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-Wall",
+      "-Wextra",
+      "-g",
+      "-Iinclude",
+      "-c",
+      "-o",
+      "src/jobs/mutate_color.o",
+      "src/jobs/mutate_color.c"
+    ],
+    "directory": "/home/hurel/multi-tache/exo3",
+    "file": "/home/hurel/multi-tache/exo3/src/jobs/mutate_color.c",
+    "output": "/home/hurel/multi-tache/exo3/src/jobs/mutate_color.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-Wall",
+      "-Wextra",
+      "-g",
+      "-Iinclude",
+      "-c",
+      "-o",
+      "src/jobs/other.o",
+      "src/jobs/other.c"
+    ],
+    "directory": "/home/hurel/multi-tache/exo3",
+    "file": "/home/hurel/multi-tache/exo3/src/jobs/other.c",
+    "output": "/home/hurel/multi-tache/exo3/src/jobs/other.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-Wall",
+      "-Wextra",
+      "-g",
+      "-Iinclude",
+      "-c",
+      "-o",
+      "src/jobs/smoosh.o",
+      "src/jobs/smoosh.c"
+    ],
+    "directory": "/home/hurel/multi-tache/exo3",
+    "file": "/home/hurel/multi-tache/exo3/src/jobs/smoosh.c",
+    "output": "/home/hurel/multi-tache/exo3/src/jobs/smoosh.o"
+  }
+]

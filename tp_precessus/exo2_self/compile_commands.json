@@ -1,0 +1,19 @@
+[
+  {
+    "arguments": [
+      "/usr/bin/g++",
+      "-std=c++17",
+      "-Wall",
+      "-Wextra",
+      "-g",
+      "-Iinclude",
+      "-c",
+      "-o",
+      "src/main.o",
+      "src/main.cpp"
+    ],
+    "directory": "/home/hurel/multi-tache/tp_precessus/exo2_self",
+    "file": "/home/hurel/multi-tache/tp_precessus/exo2_self/src/main.cpp",
+    "output": "/home/hurel/multi-tache/tp_precessus/exo2_self/src/main.o"
+  }
+]
